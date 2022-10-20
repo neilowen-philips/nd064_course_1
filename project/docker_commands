@@ -4,15 +4,16 @@ docker build -t techtrends .
 
 ## Docker commands used to run the application
 # TODO: insert the docker run command
-docker run -p 3111:3111 techtrends
+docker run -dp 7111:3111 techtrends
+
 
 ## Docker commands used to get the application logs
 # TODO: insert the docker logs command
-docker logs 17c7865559f3975771af4224890b46966218f3fea11594154df051ebbb033eb9
+docker logs 16e82b3182f3b92134e228438173d97baff217bdfe9ee20fd513c8996aea16c0
 
 ## Logs from the container running the TechTrends application
 # TODO: paste logs from the Docker container 
-* Serving Flask app 'app' (lazy loading)
+ * Serving Flask app 'app' (lazy loading)
  * Environment: production
    WARNING: This is a development server. Do not use it in a production deployment.
    Use a production WSGI server instead.
@@ -20,5 +21,27 @@ docker logs 17c7865559f3975771af4224890b46966218f3fea11594154df051ebbb033eb9
  * Running on all addresses.
    WARNING: This is a development server. Do not use it in a production deployment.
  * Running on http://172.17.0.2:3111/ (Press CTRL+C to quit)
-172.17.0.1 - - [20/Oct/2022 21:42:31] "GET / HTTP/1.1" 200 -
-172.17.0.1 - - [20/Oct/2022 21:42:31] "GET /static/css/main.css HTTP/1.1" 304 -
+172.17.0.1 - - [20/Oct/2022 22:28:14] "GET / HTTP/1.1" 200 -
+172.17.0.1 - - [20/Oct/2022 22:28:14] "GET /static/css/main.css HTTP/1.1" 200 -
+172.17.0.1 - - [20/Oct/2022 22:28:14] "GET /favicon.ico HTTP/1.1" 404 -
+172.17.0.1 - - [20/Oct/2022 22:32:29] "GET /1 HTTP/1.1" 200 -
+172.17.0.1 - - [20/Oct/2022 22:32:29] "GET /static/css/main.css HTTP/1.1" 304 -
+172.17.0.1 - - [20/Oct/2022 22:32:33] "GET / HTTP/1.1" 200 -
+172.17.0.1 - - [20/Oct/2022 22:32:33] "GET /static/css/main.css HTTP/1.1" 304 -
+172.17.0.1 - - [20/Oct/2022 22:32:34] "GET /2 HTTP/1.1" 200 -
+172.17.0.1 - - [20/Oct/2022 22:32:34] "GET /static/css/main.css HTTP/1.1" 304 -
+172.17.0.1 - - [20/Oct/2022 22:32:36] "GET / HTTP/1.1" 200 -
+172.17.0.1 - - [20/Oct/2022 22:32:36] "GET /static/css/main.css HTTP/1.1" 304 -
+172.17.0.1 - - [20/Oct/2022 22:32:37] "GET /3 HTTP/1.1" 200 -
+172.17.0.1 - - [20/Oct/2022 22:32:37] "GET /static/css/main.css HTTP/1.1" 304 -
+172.17.0.1 - - [20/Oct/2022 22:32:38] "GET / HTTP/1.1" 200 -
+172.17.0.1 - - [20/Oct/2022 22:32:38] "GET /static/css/main.css HTTP/1.1" 304 -
+172.17.0.1 - - [20/Oct/2022 22:32:40] "GET /4 HTTP/1.1" 200 -
+172.17.0.1 - - [20/Oct/2022 22:32:40] "GET /static/css/main.css HTTP/1.1" 304 -
+172.17.0.1 - - [20/Oct/2022 22:32:43] "GET / HTTP/1.1" 200 -
+172.17.0.1 - - [20/Oct/2022 22:32:43] "GET /static/css/main.css HTTP/1.1" 304 -
+172.17.0.1 - - [20/Oct/2022 22:32:44] "GET /create HTTP/1.1" 200 -
+172.17.0.1 - - [20/Oct/2022 22:32:44] "GET /static/css/main.css HTTP/1.1" 304 -
+172.17.0.1 - - [20/Oct/2022 22:32:54] "POST /create HTTP/1.1" 302 -
+172.17.0.1 - - [20/Oct/2022 22:32:54] "GET / HTTP/1.1" 200 -
+172.17.0.1 - - [20/Oct/2022 22:32:54] "GET /static/css/main.css HTTP/1.1" 304 -
