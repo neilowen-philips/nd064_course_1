@@ -1,19 +1,5 @@
 name: TechTrends - Package with Docker
 
-on:
-  push:
-    branches: [ "main" ]
-
-jobs:
-
-  build:
-
-    runs-on: ubuntu-latest
-
-    # This is a basic workflow to help you get started with Actions
-
-name: Docker Build and Push
-
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
 on:
