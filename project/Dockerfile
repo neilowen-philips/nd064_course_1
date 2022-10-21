@@ -23,7 +23,5 @@ RUN python init_db.py
 #WORKDIR /app
 EXPOSE 3111
 
-#WORKDIR /app/techtrends
-
 # During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
-CMD ["python", "./app.py","-e","production"]
+CMD ["python", "./app.py"]
