@@ -36,4 +36,4 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64
           push: true
-          tags: uda_course_1/techtrends:latest
+          tags: neilowen/uda_course_1:latest
