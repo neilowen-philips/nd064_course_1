@@ -2,10 +2,24 @@ import sqlite3
 
 from flask import Flask, jsonify, json, render_template, request, url_for, redirect, flash
 from werkzeug.exceptions import abort
+import logging
 
 # Function to get a database connection.
 # This function connects to database with the name `database.db`
 def get_db_connection():
+    # increment the number of connections
+    con = sqlite3.connect('database.db')
+    cur = con.cursor()
+    cur.execute('SELECT * FROM db_connections')
+    num_con = cur.fetchone()
+    num_db_con = int(num_con[0])
+    num_db_con += 1
+    cmd = ("UPDATE db_connections SET num_db_connections = " + str(num_db_con))
+    cur.execute(cmd)
+    con.commit()
+    con.close()
+
+    # get and return the connection
     connection = sqlite3.connect('database.db')
     connection.row_factory = sqlite3.Row
     return connection
@@ -18,9 +32,20 @@ def get_post(post_id):
     connection.close()
     return post
 
+# Function to get a post title using its ID
+def get_post_title(post_id):
+    connection = get_db_connection()
+    post_title = connection.execute('SELECT title FROM posts WHERE id = ?',
+                        (post_id,)).fetchone()
+    connection.close()
+    title_element = post_title[0]
+    return title_element
+
 # Define the Flask application
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your secret key'
+
+logging.basicConfig(level=logging.INFO, format='%(levelname)s, %(asctime)s, %(message)s')
 
 # Define the main route of the web application 
 @app.route('/')
@@ -35,14 +60,18 @@ def index():
 @app.route('/<int:post_id>')
 def post(post_id):
     post = get_post(post_id)
-    if post is None:
+    if post is None: 
+      app.logger.info('File not found. html.404 returned')
       return render_template('404.html'), 404
     else:
+      
+      app.logger.info('Article "%s" retrieved!',get_post_title(post_id))
       return render_template('post.html', post=post)
 
 # Define the About Us page
 @app.route('/about')
 def about():
+    app.logger.info('About Us page was visited')
     return render_template('about.html')
 
 # Define the post creation functionality 
@@ -63,7 +92,51 @@ def create():
 
             return redirect(url_for('index'))
 
+    app.logger.info('Article "%s" created!')
     return render_template('create.html')
+
+@app.route('/metrics')
+def metrics():
+    # get number of posts
+    con = sqlite3.connect('database.db')
+    cur = con.cursor()
+    cur.execute('SELECT COUNT(ALL ID) FROM posts')
+    post_data = cur.fetchall()
+    numPostsStr = str(post_data[0])
+    numPosts = int(numPostsStr[1])
+
+    # increment the number of connections
+    con = sqlite3.connect('database.db')
+    cur = con.cursor()
+    cur.execute('SELECT * FROM db_connections')
+    num_con = cur.fetchone()
+    num_db_con = int(num_con[0])
+    num_db_con += 1
+    cmd = ("UPDATE db_connections SET num_db_connections = " + str(num_db_con))
+    cur.execute(cmd)
+    con.commit()
+    con.close()
+
+    response = app.response_class(
+            response=json.dumps({"db_connection_count":num_db_con,"Post count":numPosts}),
+            status=200,
+            mimetype='application/json'
+    )
+    app.logger.info('Metrics request successfull')
+    return response
+
+@app.route('/healthz')
+def healthz():
+    response = app.response_class(
+            response=json.dumps({"result":"OK - healthy"}),
+            status=200,
+            mimetype='application/json'
+    )
+    app.logger.info('Status request successfull')
+    app.logger.debug('DEBUG message')
+    return response
+
+
 
 # start the application on port 3111
 if __name__ == "__main__":

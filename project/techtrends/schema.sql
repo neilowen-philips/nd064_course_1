@@ -6,3 +6,9 @@ CREATE TABLE posts (
     title TEXT NOT NULL,
     content TEXT NOT NULL
 );
+
+DROP TABLE IF EXISTS db_connections;
+
+CREATE TABLE db_connections (
+    num_db_connections INTEGER
+);
