@@ -1,0 +1,41 @@
+apiVersion: apps/v1      
+kind: Deployment
+metadata:
+  labels:
+    app: techtrends
+  name: techtrends
+  namespace: staging
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: techtrends
+      tag: lastest
+  template:
+    metadata:
+      labels:
+        app: techtrends
+        tag: lastest
+    spec:
+      containers:
+      - image: techtrends:latest
+        name: techtrends
+        resources:
+          requests:
+            memory: 90Mi
+            cpu: 300m
+          limits:
+            memory: 128Mi
+            cpu: 500m
+        ports:
+        - containerPort: 3111
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 3111
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 3111
+          initialDelaySeconds: 10
+          periodSeconds: 10
