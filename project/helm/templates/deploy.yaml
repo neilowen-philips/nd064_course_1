@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - image: {{ .values.image.repository }}:{{ .values.image.tag }}
-        name: {{ .values.image.repository}}
+        name: {{ .values.image.repository }}
         resources:
           requests:
             memory: {{ .values.resources.requests.memory }}
@@ -29,7 +29,7 @@ spec:
             memory: {{ .values.resources.limits.memory }}
             cpu: {{ .values.resources.limits.cpu }}
         ports:
-        - containerPort: {{ .values.containerPort}}
+        - containerPort: {{ .values.containerPort }}
         livenessProbe:
           httpGet:
             path: {{ .values.livenessProbe.path }}
