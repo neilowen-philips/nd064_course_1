@@ -1,19 +1,17 @@
 apiVersion: v1
 kind: Service
 metadata:
-  creationTimestamp: null
   labels:
-    app: {{ .values.metadata.app }}
-  name: {{ .values.metadata.name }}
-  namespace: {{ .values.namespace.name }}
+    app: techtrends
+  name: techtrends
+  namespace: {{ .Values.namespace.name }}
 spec:
   ports:
   - name: 4111-3111
-    port: {{ .values.service.port }}
-    protocol: {{ .values.service.protocal }}
-    targetPort: {{ .values.service.targetPort }}
+    port: {{ .Values.service.port }}
+    protocol: {{ .Values.service.protocol }}
+    targetPort: {{ .Values.service.targetPort }}
   selector:
-    app: {{ .values.metadata.name }}
-  type: {{ .values.service.type }}
-status:
-  loadBalancer: {}
+    app: techtrends
+    tag: {{ .Values.image.tag }}
+  type: {{ .Values.service.type }}

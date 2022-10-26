@@ -1,5 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  cname: {{ .Values.namespace.name }}
+  labels: 
+    tier: test
+  name: {{ .Values.namespace.name }} 
   
