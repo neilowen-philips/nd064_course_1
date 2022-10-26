@@ -9,8 +9,9 @@ metadata:
 spec:
   ports:
   - port: {{ .Values.service.port }} 
-    protocol: TCP
-    targetPort: {{ .Values.service.port }}
+    protocol: {{ .Values.service.protocol }}
+    targetPort: {{ .Values.service.targetPort }}
+    type: {{ .Values.service.type }}
   selector:
     app: techtrends
     tag: latest
