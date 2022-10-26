@@ -1,5 +1,5 @@
 namespace:
-  name: demo
+  name: sandbox
  
 service:
   port: 4111
