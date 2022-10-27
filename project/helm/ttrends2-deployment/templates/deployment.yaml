@@ -10,8 +10,8 @@ spec:
   replicas: {{ .Values.replicaCount }} 
   selector:
     matchLabels:
-    app: techtrends
-    tag: latest
+      app: techtrends
+      tag: latest
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -20,8 +20,8 @@ spec:
   template:
     metadata:
       labels:
-    app: techtrends
-    tag: latest
+        app: techtrends
+        tag: latest
     spec:
       containers:
       - image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
