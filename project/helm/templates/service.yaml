@@ -3,16 +3,16 @@ kind: Service
 metadata:
   labels:
     app: techtrends
-    tag: latest
   name: techtrends
   namespace: {{ .Values.namespace.name }} 
 spec:
   ports:
-  - port: {{ .Values.service.port }}
+  - name: 4111-3111
+    port: {{ .Values.service.port }}
     protocol: {{ .Values.service.protocol }}
     targetPort: {{ .Values.service.targetPort }}
-    type: {{ .Values.service.type }}
   selector:
     app: techtrends
-    tag: latest
   type: {{ .Values.service.type }} 
+status:
+  loadBalancer: {}
