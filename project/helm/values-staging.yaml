@@ -3,6 +3,9 @@ namespace:
  
 service:
   port: 5111
+  targetPort: 3111
+  protocol: TCP
+  type: ClusterIP
 
 replicaCount: 3
 
