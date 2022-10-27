@@ -11,8 +11,8 @@ spec:
   - port: {{ .Values.service.port }} 
     protocol: {{ .Values.service.protocol }}
     targetPort: {{ .Values.service.targetPort }}
-    type: {{ .Values.service.type }}
+    type: ClusterIP
   selector:
     app: techtrends
     tag: latest
-  type: {{ .Values.service.type }} 
+  type: ClusterIP 

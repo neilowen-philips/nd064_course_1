@@ -3,7 +3,6 @@ namespace:
  
 service:
   port: 80
-  type: ClusterIP
 
 image:
   repository: nginx 
