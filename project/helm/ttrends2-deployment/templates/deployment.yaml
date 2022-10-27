@@ -4,7 +4,7 @@ metadata:
   labels:
     app: techtrends
     tag: latest
-  name: nginx-alpine
+  name: techtrends
   namespace: {{ .Values.namespace.name }} 
 spec:
   replicas: {{ .Values.replicaCount }} 
