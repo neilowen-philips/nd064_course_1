@@ -6,8 +6,8 @@ service:
   type: ClusterIP
 
 image:
-  repository: nginx 
-  tag: 1.18.0
+  repository: techtrends
+  tag: latest
   pullPolicy: IfNotPresent
 
 replicaCount: 1
@@ -16,6 +16,3 @@ resources:
   requests:
     cpu: 50m
     memory: 128Mi
-
-configmap:
-  data: "version: 1.18.0"
