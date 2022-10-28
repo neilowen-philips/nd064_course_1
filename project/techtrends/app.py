@@ -3,9 +3,10 @@ import sqlite3
 from flask import Flask, jsonify, json, render_template, request, url_for, redirect, flash
 from werkzeug.exceptions import abort
 import logging
+import sys
+
 
 # Function to get a database connection.
-# This function connects to database with the name `database.db`
 def get_db_connection():
     # increment the number of connections
     con = sqlite3.connect('database.db')
@@ -41,11 +42,29 @@ def get_post_title(post_id):
     title_element = post_title[0]
     return title_element
 
+def init_logger():
+    # set logger to handle STDOUT and STDERR 
+    logger = logging.getLogger('appLogger')
+    logger.setLevel(logging.DEBUG)
+    # handlers
+    stdout_handler = logging.StreamHandler(sys.stdout)
+    stdout_handler.setLevel(logging.DEBUG)
+    stderr_handler = logging.StreamHandler(sys.stderr)
+    stderr_handler.setLevel(logging.DEBUG)
+    # formatter
+    formatter = logging.Formatter('%(levelname)s:%(name)s:%(asctime)s:%(message)s')
+    stdout_handler.setFormatter(formatter)
+    stderr_handler.setFormatter(formatter)
+    # add handlers
+    logger.addHandler(stdout_handler)
+    logger.addHandler(stderr_handler)
+ 
 # Define the Flask application
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your secret key'
 
-logging.basicConfig(level=logging.INFO, format='%(levelname)s, %(asctime)s, %(message)s')
+init_logger()
+app.logger = logging.getLogger('appLogger')
 
 # Define the main route of the web application 
 @app.route('/')
@@ -61,17 +80,17 @@ def index():
 def post(post_id):
     post = get_post(post_id)
     if post is None: 
-      app.logger.info('File not found. html.404 returned')
+      app.logger.debug('File not found. html.404 returned')
       return render_template('404.html'), 404
     else:
       
-      app.logger.info('Article "%s" retrieved!',get_post_title(post_id))
+      app.logger.debug('Article "%s" retrieved!',get_post_title(post_id))
       return render_template('post.html', post=post)
 
 # Define the About Us page
 @app.route('/about')
 def about():
-    app.logger.info('About Us page was visited')
+    app.logger.debug('About Us page was visited')
     return render_template('about.html')
 
 # Define the post creation functionality 
@@ -92,7 +111,7 @@ def create():
 
             return redirect(url_for('index'))
 
-    app.logger.info('Article "%s" created!')
+    app.logger.debug('Article "%s" created!')
     return render_template('create.html')
 
 @app.route('/metrics')
@@ -122,7 +141,7 @@ def metrics():
             status=200,
             mimetype='application/json'
     )
-    app.logger.info('Metrics request successfull')
+    app.logger.debug('Metrics request successful')
     return response
 
 @app.route('/healthz')
@@ -132,7 +151,7 @@ def healthz():
             status=200,
             mimetype='application/json'
     )
-    app.logger.info('Status request successfull')
+    app.logger.debug('Status request successful')
     app.logger.debug('DEBUG message')
     return response
 
