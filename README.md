@@ -5,5 +5,3 @@
 
 **Instructor**: https://github.com/kgamanji
 
-
-text actions
